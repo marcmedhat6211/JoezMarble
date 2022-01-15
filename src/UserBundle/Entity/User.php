@@ -2,6 +2,7 @@
 
 namespace App\UserBundle\Entity;
 
+use App\Entity\Image;
 use App\UserBundle\Model\BaseUser;
 use App\UserBundle\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -44,6 +45,11 @@ class User extends BaseUser
      * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
      */
     private $facebookId;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", inversedBy="userProfileImage", cascade={"persist", "remove" })
+     */
+    private $profileImage;
 
     public function getId(): ?int
     {
@@ -94,6 +100,18 @@ class User extends BaseUser
     public function setFacebookId(?string $facebookId): self
     {
         $this->facebookId = $facebookId;
+
+        return $this;
+    }
+
+    public function getProfileImage(): ?Image
+    {
+        return $this->profileImage;
+    }
+
+    public function setProfileImage(?Image $profileImage): self
+    {
+        $this->profileImage = $profileImage;
 
         return $this;
     }

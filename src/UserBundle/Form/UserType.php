@@ -2,7 +2,10 @@
 
 namespace App\UserBundle\Form;
 
+use App\Entity\Image;
 use App\UserBundle\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -40,6 +43,9 @@ class UserType extends AbstractType
                 'second_options' => ['label' => 'Confirm Password']
             ])
             ->add('enabled')
+            ->add('profileImage', EntityType::class, [
+                'class' => Image::class
+            ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success float-right'

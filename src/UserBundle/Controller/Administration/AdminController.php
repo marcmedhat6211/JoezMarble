@@ -2,6 +2,7 @@
 
 namespace App\UserBundle\Controller\Administration;
 
+use App\Services\FileUploader;
 use App\UserBundle\Entity\User;
 use App\UserBundle\Form\UserType;
 use App\UserBundle\Repository\UserRepository;
@@ -47,12 +48,12 @@ class AdminController extends AbstractController
     /**
      * @Route("/new", name="admin_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, UserService $userService): Response
+    public function new(Request $request, UserService $userService, FileUploader $fileUploader): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
+        $fileUploader->uploadFile($request, User::class, "profileImage");
         if ($form->isSubmitted() && $form->isValid()) {
             $user->addRole(User::ROLE_ADMIN);
             $userService->setUserPassword($form, $user);

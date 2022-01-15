@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Utils\Model;
+namespace App\Model;
+
+use Doctrine\ORM\Mapping as ORM;
 
 trait VirtualDeleteTrait
 {
-        /**
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $deleted = null;
@@ -14,23 +16,27 @@ trait VirtualDeleteTrait
      */
     protected $deletedBy = NULL;
 
-    public function setDeleted($deleted) {
+    public function setDeleted($deleted)
+    {
         $this->deleted = $deleted;
 
         return $this;
     }
 
-    public function getDeleted() {
+    public function getDeleted()
+    {
         return $this->deleted;
     }
 
-    public function setDeletedBy($deletedBy) {
+    public function setDeletedBy($deletedBy)
+    {
         $this->deletedBy = $deletedBy;
 
         return $this;
     }
 
-    public function getDeletedBy() {
+    public function getDeletedBy()
+    {
         return $this->deletedBy;
     }
 }

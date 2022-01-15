@@ -2,7 +2,7 @@
 
 namespace App\UserBundle\Model;
 
-use App\Utils\Model\VirtualDeleteTrait;
+use App\Model\VirtualDeleteTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
