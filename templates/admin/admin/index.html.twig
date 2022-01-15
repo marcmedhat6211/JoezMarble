@@ -1,0 +1,57 @@
+{% extends 'adminTemplate/base.html.twig' %}
+
+{% block header %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Administrators List</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <a href="{{ path('admin_new') }}" class="btn btn-md btn-success mb-3 float-right">Add</a>
+    {# {{ dump(pagination.getTotalItemCount) }} #}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Last Login</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for admin in pagination %}
+                <tr>
+                    <td>{{ admin.id }}</td>
+                    <td>{{ admin.username }}</td>
+                    <td>{{ admin.email }}</td>
+                    <td>{{ admin.phone }}</td>
+                    <td>
+                        {% if admin.enabled %}
+                            <label class="badge badge-success">Active</label>
+                        {% else %}
+                            <label class="badge badge-danger">Inactive</label>
+                        {% endif %}
+                    </td>
+                    <td>{{ admin.lastLogin ? admin.lastLogin|date : "n/a" }}</td>
+                    <td>
+                        <a href="{{ path('admin_edit', {'id': admin.id}) }}" class="btn-sm btn-primary">Edit</a>
+                        <a href="{{ path('admin_delete', {'id': admin.id}) }}"
+                           onclick="return confirm('Are you sure you want to delete this admin ?');"
+                           class="btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
